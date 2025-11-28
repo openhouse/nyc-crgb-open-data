@@ -1,0 +1,15 @@
+year,geography_type,geography_id,geography_name,total_storefronts,vacant_storefronts,vacancy_rate,median_rent_psf,total_storefronts_class1,vacant_storefronts_class1,total_storefronts_class2_4,vacant_storefronts_class2_4,median_rent_psf_class2_4
+2022,borough,BK,Brooklyn,2000,300,0.15,55.25,800,120,1200,180,55.25
+2022,borough,BX,Bronx,1100,175,0.1590909090909091,33.5,400,70,700,105,33.5
+2022,borough,MN,Manhattan,2100,285,0.1357142857142857,88.1,600,75,1500,210,88.1
+2022,borough,QN,Queens,1400,155,0.11071428571428571,42.0,500,65,900,90,42.0
+2022,borough,SI,Staten Island,500,55,0.11,28.75,200,25,300,30,28.75
+2022,council_district,CD-01,CD 1,320,48,0.15,90.0,120,18,200,30,90.0
+2022,council_district,CD-02,CD 2,290,30,0.10344827586206896,85.5,110,12,180,18,85.5
+2023,borough,BK,Brooklyn,2120,313,0.14764150943396226,57.0,820,118,1300,195,57.0
+2023,borough,BX,Bronx,1140,179,0.1570175438596491,34.0,420,69,720,110,34.0
+2023,borough,MN,Manhattan,2135,273,0.12786885245901639,90.0,610,73,1525,200,90.0
+2023,borough,QN,Queens,1470,164,0.11156462585034013,44.1,520,64,950,100,44.1
+2023,borough,SI,Staten Island,530,59,0.11132075471698114,29.25,210,24,320,35,29.25
+2023,council_district,CD-01,CD 1,335,49,0.14626865671641792,92.0,125,17,210,32,92.0
+2023,council_district,CD-02,CD 2,300,33,0.11,87.25,115,13,185,20,87.25

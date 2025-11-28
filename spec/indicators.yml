@@ -1,0 +1,24 @@
+- id: vacancy_rate
+  name: Vacancy rate
+  description: >
+    Share of storefronts reported vacant among all reported storefronts
+    in the geography and year.
+  unit: percent
+  level: geography_year
+  source_tables:
+    - storefront_stats_class2_4
+    - storefront_stats_class1
+  notes:
+    - "Derived from DOF LL157 storefront statistics."
+    - "Exact definition may differ by tax class; see methods.md."
+- id: median_rent_psf
+  name: Median monthly rent per square foot
+  description: >
+    Median monthly rent per square foot for leased storefronts in
+    the geography and year.
+  unit: USD_per_sqft_per_month
+  level: geography_year
+  source_tables:
+    - storefront_stats_class2_4
+  notes:
+    - "Class 2 & 4 only in first pass."

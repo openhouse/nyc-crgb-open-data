@@ -1,0 +1,34 @@
+- id: storefront_stats_class2_4
+  title: Storefront registration statistics, tax classes 2 and 4
+  description: >
+    Aggregated LL157 statistics for designated Class 2 and 4 properties,
+    by geography and year, as published by DOF.
+  raw_path: data-raw/storefront/storefront_stats_class2_4.csv
+  processed_tables:
+    - crgb_storefront_indicators
+  key_columns:
+    - year
+    - geography_type
+    - geography_id
+- id: storefront_stats_class1
+  title: Storefront registration statistics, tax class 1
+  description: >
+    Aggregated LL157 statistics for Class 1 properties, by geography and year,
+    as published by DOF.
+  raw_path: data-raw/storefront/storefront_stats_class1.csv
+  processed_tables:
+    - crgb_storefront_indicators
+  key_columns:
+    - year
+    - geography_type
+    - geography_id
+- id: crgb_storefront_indicators
+  title: CRGB storefront indicators by geography and year
+  description: >
+    Derived indicators (vacancy rate, rent per square foot, etc.) by
+    geography and year for CRGB-style analysis.
+  processed_path: data/indicators/crgb_storefront_indicators.csv
+  key_columns:
+    - year
+    - geography_type
+    - geography_id

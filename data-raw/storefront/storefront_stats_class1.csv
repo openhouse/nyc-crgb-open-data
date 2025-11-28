@@ -1,0 +1,15 @@
+year,geography_type,geography_id,geography_name,total_storefronts,vacant_storefronts
+2022,borough,BK,Brooklyn,800,120
+2022,borough,MN,Manhattan,600,75
+2022,borough,QN,Queens,500,65
+2022,borough,BX,Bronx,400,70
+2022,borough,SI,Staten Island,200,25
+2022,council_district,CD-01,CD 1,120,18
+2022,council_district,CD-02,CD 2,110,12
+2023,borough,BK,Brooklyn,820,118
+2023,borough,MN,Manhattan,610,73
+2023,borough,QN,Queens,520,64
+2023,borough,BX,Bronx,420,69
+2023,borough,SI,Staten Island,210,24
+2023,council_district,CD-01,CD 1,125,17
+2023,council_district,CD-02,CD 2,115,13
