@@ -3,6 +3,10 @@
 source(here::here("code", "00_setup.R"))
 
 indicator_path <- data_path("indicators", "crgb_storefront_indicators.csv")
+if (!file.exists(indicator_path)) {
+  stop("Indicator file not found. Run code/03_build_indicators.R first.")
+}
+
 indicators <- readr::read_csv(indicator_path, show_col_types = FALSE)
 
 boroughs <- indicators |>
@@ -16,6 +20,13 @@ theme_fun <- function() {
   theme_minimal()
 }
 
+scale_colour_fun <- function() {
+  if (requireNamespace("councildown", quietly = TRUE)) {
+    return(councildown::scale_colour_council())
+  }
+  scale_color_brewer(palette = "Set2")
+}
+
 p <- ggplot(boroughs, aes(x = year, y = vacancy_pct, color = geography_name, group = geography_name)) +
   geom_line(size = 1) +
   geom_point() +
@@ -26,6 +37,7 @@ p <- ggplot(boroughs, aes(x = year, y = vacancy_pct, color = geography_name, gro
     y = "Vacancy rate (%)",
     color = "Borough"
   ) +
+  scale_colour_fun() +
   theme_fun()
 
 ggsave(filename = viz_path("vacancy_rate_by_borough.png"), plot = p, width = 8, height = 5, dpi = 300)
