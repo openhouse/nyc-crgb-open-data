@@ -5,8 +5,8 @@ current LL157 storefront sample into a fuller open-data foundation for a
 future Commercial Rent Guidelines Board (CRGB).
 
 ## Phase 0 – Environment and reproducibility
-- [ ] Set up `renv` and commit a stable `renv.lock` for the project.
-- [ ] Confirm `targets::tar_make()` runs from a clean clone via `renv::restore()`.
+- [x] Set up `renv` and commit a stable `renv.lock` for the project.
+- [x] Confirm `targets::tar_make()` runs from a clean clone via `renv::restore()`.
 - [ ] Keep visualization dependencies optional (graceful fallback when `councildown` is absent).
 
 ## Phase 1 – LL157 storefront indicators (current scaffold)
@@ -16,9 +16,9 @@ future Commercial Rent Guidelines Board (CRGB).
   - [x] `vacancy_rate = vacant_storefronts / total_storefronts`.
   - [x] `median_rent_psf` for Classes 2/4.
 - [x] Produce a borough-level vacancy-rate chart (`viz/vacancy_rate_by_borough.png`) as an end-to-end smoke test.
-- [ ] Align ingest column names and types to the official NYC Open Data LL157 aggregates:
+- [x] Align ingest column names and types to the official NYC Open Data LL157 aggregates:
   - `Storefront Registration Class 2 and 4 Statistics` (`dxru-eun8`).
-  - `Storefront Registration Statistics for Designated Class One` (`x3n4-h56k`).
+  - `Storefront Registration Statistics for Designated Class One` (`x3n4-h56k`). Snapshots are cached in `data-raw/storefront/` by default.
 - [ ] Extend geographies beyond boroughs as the aggregates allow (e.g., Council Districts, corridors/BIDs) while keeping validation checks (`vacancy_rate` within [0, 1], `vacant_storefronts <= total_storefronts`).
 
 ## Phase 2 – Property-level storefront registry (NYC Open Data)

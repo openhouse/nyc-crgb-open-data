@@ -1,53 +1,123 @@
-# Purpose: Read LL157 storefront statistics CSVs, standardize column names, and save cleaned RDS files.
-# Source datasets (NYC Open Data aggregate tables):
-# - Storefront Registration Class 2 and 4 Statistics (dxru-eun8)
-# - Storefront Registration Statistics for Designated Class One (x3n4-h56k)
-# Drop exports from those tables into data-raw/storefront/ (or extend
-# code/02_fetch_open_data.R to automate downloads) before running.
+# Purpose: Read LL157 storefront statistics (Classes 1, 2/4) from NYC Open Data or local fixtures,
+# standardize column names, and save cleaned RDS/CSV files.
 
 source(here::here("code", "00_setup.R"))
+source(here::here("code", "02_nyc_open_data.R"))
 
-read_storefront_stats <- function(path) {
+bool_env <- function(x, default = TRUE) {
+  val <- Sys.getenv(x, ifelse(default, "true", "false"))
+  tolower(val) %in% c("true", "t", "1", "yes", "y")
+}
+
+parse_int <- function(x) {
+  readr::parse_integer(x, na = c("", "NA", "*"), locale = readr::locale(grouping_mark = ","))
+}
+
+parse_num <- function(x) {
+  readr::parse_number(x, na = c("", "NA", "*"), locale = readr::locale(grouping_mark = ","))
+}
+
+standardize_geography_id <- function(geography_type, geography_name) {
+  ifelse(
+    geography_type == "borough",
+    dplyr::recode(
+      stringr::str_to_upper(geography_name),
+      "MANHATTAN" = "MN",
+      "BRONX" = "BX",
+      "BROOKLYN" = "BK",
+      "QUEENS" = "QN",
+      "STATEN ISLAND" = "SI",
+      .default = geography_name
+    ),
+    geography_name
+  )
+}
+
+read_storefront_stats <- function(path, open_data_id = NULL, use_open_data = TRUE, refresh = FALSE) {
+  if (use_open_data && !is.null(open_data_id)) {
+    path <- fetch_nyc_open_data_snapshot(open_data_id, path, refresh = refresh)
+  }
+
   if (!file.exists(path)) {
-    stop(glue::glue("Expected storefront stats at {path}. Drop the CSV in data-raw/storefront/ and rerun."))
+    stop(glue::glue("Expected storefront stats at {path} or a valid open_data_id."))
   }
 
   df <- readr::read_csv(path, show_col_types = FALSE) |>
     janitor::clean_names()
 
-  has_rent <- "median_rent_psf" %in% names(df)
-
-  df <- df |>
-    mutate(
-      year = as.integer(year),
-      geography_type = stringr::str_to_lower(geography_type),
-      geography_id = as.character(geography_id),
-      geography_name = as.character(geography_name),
-      total_storefronts = as.integer(total_storefronts),
-      vacant_storefronts = as.integer(vacant_storefronts)
-    )
-
-  df <- if (has_rent) {
-    df |>
-      mutate(median_rent_psf = as.numeric(median_rent_psf))
-  } else {
-    df |>
-      mutate(median_rent_psf = NA_real_)
+  required_raw <- c(
+    "reporting_year",
+    "aggregate_level_citywide",
+    "aggregate_level_id",
+    "total_storefronts",
+    "storefront_reported_not_leased"
+  )
+  missing <- setdiff(required_raw, names(df))
+  if (length(missing) > 0) {
+    stop(glue::glue("Missing required raw columns: {paste(missing, collapse = ', ')}"))
   }
 
-  # If DOF tweaks upstream column names, we may need to extend the cleaning logic above
-  # to coalesce alternate count fields before applying types.
+  has_rent <- "median_monthly_rent_per_square" %in% names(df)
+
+  df <- df |>
+    transmute(
+      year = as.integer(parse_int(reporting_year)),
+      geography_type = stringr::str_replace_all(stringr::str_to_lower(aggregate_level_citywide), "_", " ") |>
+        stringr::str_squish(),
+      geography_name = stringr::str_to_title(aggregate_level_id),
+      geography_id = standardize_geography_id(stringr::str_to_lower(aggregate_level_citywide) |> stringr::str_squish(), geography_name),
+      total_storefronts = parse_int(total_storefronts),
+      vacant_storefronts = parse_int(storefront_reported_not_leased),
+      median_rent_psf = if (has_rent) parse_num(median_monthly_rent_per_square) else NA_real_
+    ) |>
+    mutate(
+      vacancy_rate = dplyr::if_else(total_storefronts > 0, vacant_storefronts / total_storefronts, NA_real_),
+      geography_id = as.character(geography_id),
+      geography_name = as.character(geography_name)
+    )
+
+  required_clean <- c(
+    "year", "geography_type", "geography_id", "geography_name",
+    "total_storefronts", "vacant_storefronts", "vacancy_rate", "median_rent_psf"
+  )
+  missing_clean <- setdiff(required_clean, names(df))
+  if (length(missing_clean) > 0) {
+    stop(glue::glue("Missing required cleaned columns: {paste(missing_clean, collapse = ', ')}"))
+  }
+
+  if (any(df$vacant_storefronts > df$total_storefronts, na.rm = TRUE)) {
+    stop("Vacant storefront counts exceed totals in the raw data.")
+  }
+  if (any(df$vacancy_rate < 0 | df$vacancy_rate > 1, na.rm = TRUE)) {
+    stop("Vacancy rate outside [0,1] after computation.")
+  }
+
   df
 }
 
-run_ingest_storefronts <- function() {
+run_ingest_storefronts <- function(use_open_data = bool_env("CRGB_USE_OPEN_DATA", TRUE),
+                                   refresh_open_data = bool_env("CRGB_REFRESH_OPEN_DATA", FALSE)) {
   dir.create(data_path("storefront"), showWarnings = FALSE, recursive = TRUE)
 
-  class2_4_raw <- data_raw_path("storefront", "storefront_stats_class2_4.csv")
-  class1_raw <- data_raw_path("storefront", "storefront_stats_class1.csv")
+  spec_24 <- dataset_spec("storefront_stats_class2_4")
+  spec_1 <- dataset_spec("storefront_stats_class1")
 
-  storefront_stats_class2_4 <- read_storefront_stats(class2_4_raw)
-  storefront_stats_class1 <- read_storefront_stats(class1_raw)
+  class2_4_raw_path <- data_raw_path(spec_24$raw_path)
+  class1_raw_path <- data_raw_path(spec_1$raw_path)
+
+  storefront_stats_class2_4 <- read_storefront_stats(
+    class2_4_raw_path,
+    open_data_id = spec_24$open_data_id,
+    use_open_data = use_open_data,
+    refresh = refresh_open_data
+  )
+
+  storefront_stats_class1 <- read_storefront_stats(
+    class1_raw_path,
+    open_data_id = spec_1$open_data_id,
+    use_open_data = use_open_data,
+    refresh = refresh_open_data
+  )
 
   class2_4_out <- data_path("storefront", "storefront_stats_class2_4_clean.rds")
   class1_out <- data_path("storefront", "storefront_stats_class1_clean.rds")

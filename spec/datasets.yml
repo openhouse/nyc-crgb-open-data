@@ -1,9 +1,12 @@
 - id: storefront_stats_class2_4
   title: Storefront registration statistics, tax classes 2 and 4
-  description: >
+  description: |
     Aggregated LL157 statistics for designated Class 2 and 4 properties,
     by geography and year, as published by DOF.
-  raw_path: data-raw/storefront/storefront_stats_class2_4.csv
+  source: NYC Open Data
+  open_data_id: dxru-eun8
+  open_data_url: https://data.cityofnewyork.us/resource/dxru-eun8
+  raw_path: storefront/storefront_stats_class2_4.csv
   processed_tables:
     - crgb_storefront_indicators
   key_columns:
@@ -12,10 +15,13 @@
     - geography_id
 - id: storefront_stats_class1
   title: Storefront registration statistics, tax class 1
-  description: >
+  description: |
     Aggregated LL157 statistics for Class 1 properties, by geography and year,
     as published by DOF.
-  raw_path: data-raw/storefront/storefront_stats_class1.csv
+  source: NYC Open Data
+  open_data_id: x3n4-h56k
+  open_data_url: https://data.cityofnewyork.us/resource/x3n4-h56k
+  raw_path: storefront/storefront_stats_class1.csv
   processed_tables:
     - crgb_storefront_indicators
   key_columns:
@@ -24,7 +30,7 @@
     - geography_id
 - id: crgb_storefront_indicators
   title: CRGB storefront indicators by geography and year
-  description: >
+  description: |
     Derived indicators (vacancy rate, rent per square foot, etc.) by
     geography and year for CRGB-style analysis.
   processed_path: data/indicators/crgb_storefront_indicators.csv

@@ -3,7 +3,15 @@
 - **Data source:** Aggregated Local Law 157 storefront registration statistics published by NYC Department of Finance on NYC Open Data:
   - `Storefront Registration Class 2 and 4 Statistics` (`dxru-eun8`)
   - `Storefront Registration Statistics for Designated Class One` (`x3n4-h56k`)
-  Sample CSVs in `data-raw/storefront/` are synthetic placeholders shaped to those schemas for pipeline testing.
+  Snapshots are cached under `data-raw/storefront/` via `read_storefront_stats()`, refreshed when `CRGB_REFRESH_OPEN_DATA=true`, and can fall back to local fixtures when `CRGB_USE_OPEN_DATA=false`.
+- **Column mapping:**
+  - `reporting_year` → `year`
+  - `aggregate_level_citywide` → `geography_type` (lower case) and `geography_name` (title case)
+  - `aggregate_level_id` → `geography_name`, with `geography_id` recoded to borough abbreviations (`MN`, `BX`, `BK`, `QN`, `SI`) when `geography_type == "borough"`
+  - `total_storefronts` → `total_storefronts`
+  - `storefront_reported_not_leased` → `vacant_storefronts`; `vacancy_rate` computed as `vacant_storefronts / total_storefronts`
+  - `median_monthly_rent_per_square` → `median_rent_psf` (Classes 2/4 only; set to `NA` for Class 1)
+- **Data quirks:** Portal values may include commas or `*` suppressions; these are parsed as integers/doubles with `NA` where appropriate. Geographies arrive at multiple levels (borough, citywide, census tract, etc.); we retain them but only borough rows feed the example viz. Counts are validated to ensure `vacant_storefronts <= total_storefronts` and `vacancy_rate` remains within [0, 1].
 - **Public-only scope:** The repository works exclusively with public aggregates—no confidential microdata (e.g., RPIE filings) are ingested. Property-level LL157 data (`Storefronts Reported Vacant or Not`, `92iy-9c3n`) will only be used once an open-data–appropriate path is defined.
 - **Cleaning:** Column names are standardized to snake_case with `janitor::clean_names()`. Core identifiers (`year`, `geography_type`, `geography_id`, `geography_name`) and counts are cast to consistent types. If upstream count or rent fields change, extend the ingest coalescing logic before typing.
 - **Indicators:**
