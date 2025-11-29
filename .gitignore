@@ -10,3 +10,5 @@ renv/staging/
 _output.yaml
 */_site/
 .Rproj.user/
+data-raw/storefront/*.csv
+data-raw/storefront/*.rds

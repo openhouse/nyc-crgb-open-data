@@ -10,7 +10,7 @@ future Commercial Rent Guidelines Board (CRGB).
 - [ ] Keep visualization dependencies optional (graceful fallback when `councildown` is absent).
 
 ## Phase 1 – LL157 storefront indicators (current scaffold)
-- [x] Ingest synthetic LL157 storefront statistics for tax Class 1 and Classes 2/4 from `data-raw/storefront/*.csv` and write cleaned RDS/CSV files to `data/storefront/`.
+- [x] Ingest LL157 storefront statistics for tax Class 1 and Classes 2/4 from NYC Open Data snapshots in `data-raw/storefront/*.csv` (downloaded via `fetch_nyc_open_data_snapshot()`) and write cleaned RDS/CSV files to `data/storefront/`.
 - [x] Build `data/indicators/crgb_storefront_indicators.csv` with:
   - [x] `total_storefronts` and `vacant_storefronts` by geography and year.
   - [x] `vacancy_rate = vacant_storefronts / total_storefronts`.
