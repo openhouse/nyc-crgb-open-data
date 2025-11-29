@@ -4,6 +4,7 @@
   - `Storefront Registration Class 2 and 4 Statistics` (`dxru-eun8`)
   - `Storefront Registration Statistics for Designated Class One` (`x3n4-h56k`)
   Snapshots are cached under `data-raw/storefront/` via `fetch_nyc_open_data_snapshot()` and refreshed when `CRGB_REFRESH_OPEN_DATA=true`. The default path always uses these public tables; synthetic fixtures live only under `tests/fixtures/storefront/` for offline development and require `CRGB_USE_OPEN_DATA=false` to engage.
+  The helper forces `$limit` to a plain integer string to avoid scientific-notation queries (e.g., `5e+05`) that Socrata rejects.
 - **Column mapping (Open Data schema → canonical):**
   - `reporting_year` → `year`
   - `aggregate_level_citywide` → `geography_type` (lower case, spaces instead of underscores)
