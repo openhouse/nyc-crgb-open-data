@@ -16,9 +16,14 @@ Open-source prototype of a minimum public data foundation for a future Commercia
  git clone <repo-url>
  cd nyc-crgb-open-data
 
-# install dependencies (renv optional but recommended)
+# install dependencies (recommended)
 # in R
- # renv::restore()
+ install.packages("renv")
+ renv::restore()
+
+# manual fallback (if you prefer base R installs)
+# in R
+ source("code/install_deps.R")
 
 # run pipeline from repo root
 # in R
@@ -35,4 +40,6 @@ The pipeline reads public LL157 storefront CSVs from `data-raw/storefront/`, wri
 
 ## Notes
 - Only aggregated, public data is stored in this repo; drop updated CSVs into `data-raw/storefront/` before running scripts.
+- The initial example uses synthetic LL157 storefront statistics shaped to match NYC Open Data aggregates; swap in official exports without changing code.
 - The initial example focuses on LL157 storefront statistics; additional geographies and indicators will be layered on in later iterations.
+- See `docs/indicator_roadmap.md` for the planned indicator suite and implementation status.

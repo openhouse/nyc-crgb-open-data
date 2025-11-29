@@ -1,4 +1,9 @@
 # Purpose: Read LL157 storefront statistics CSVs, standardize column names, and save cleaned RDS files.
+# Source datasets (NYC Open Data aggregate tables):
+# - Storefront Registration Class 2 and 4 Statistics (dxru-eun8)
+# - Storefront Registration Statistics for Designated Class One (x3n4-h56k)
+# Drop exports from those tables into data-raw/storefront/ (or extend
+# code/02_fetch_open_data.R to automate downloads) before running.
 
 source(here::here("code", "00_setup.R"))
 

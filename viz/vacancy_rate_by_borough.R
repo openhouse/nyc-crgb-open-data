@@ -14,21 +14,27 @@ boroughs <- indicators |>
   mutate(vacancy_pct = vacancy_rate * 100)
 
 theme_fun <- function() {
-  if (requireNamespace("councildown", quietly = TRUE)) {
+  if (
+    requireNamespace("councildown", quietly = TRUE) &&
+      "theme_council" %in% getNamespaceExports("councildown")
+  ) {
     return(councildown::theme_council())
   }
   theme_minimal()
 }
 
 scale_colour_fun <- function() {
-  if (requireNamespace("councildown", quietly = TRUE)) {
+  if (
+    requireNamespace("councildown", quietly = TRUE) &&
+      "scale_colour_council" %in% getNamespaceExports("councildown")
+  ) {
     return(councildown::scale_colour_council())
   }
   scale_color_brewer(palette = "Set2")
 }
 
 p <- ggplot(boroughs, aes(x = year, y = vacancy_pct, color = geography_name, group = geography_name)) +
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   geom_point() +
   labs(
     title = "Storefront vacancy rate by borough",
