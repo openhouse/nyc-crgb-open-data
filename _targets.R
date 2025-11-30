@@ -61,11 +61,38 @@ list(
     format = "file"
   ),
   tar_target(
+    ll157_borough_comparison,
+    {
+      crgb_storefront_indicators
+      source(here::here("code", "04_qa_ll157.R"))
+      write_ll157_borough_comparison()
+    },
+    format = "file"
+  ),
+  tar_target(
     vacancy_rate_by_borough_png,
     {
       crgb_storefront_indicators
       source(here::here("viz", "vacancy_rate_by_borough.R"))
       viz_path("vacancy_rate_by_borough.png")
+    },
+    format = "file"
+  ),
+  tar_target(
+    total_storefronts_by_borough_png,
+    {
+      crgb_storefront_indicators
+      source(here::here("viz", "total_storefronts_by_borough.R"))
+      viz_path("total_storefronts_by_borough.png")
+    },
+    format = "file"
+  ),
+  tar_target(
+    vacancy_rate_by_council_district_png,
+    {
+      crgb_storefront_indicators
+      source(here::here("viz", "vacancy_rate_by_council_district.R"))
+      viz_path("vacancy_rate_by_council_district.png")
     },
     format = "file"
   )

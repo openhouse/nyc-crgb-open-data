@@ -15,20 +15,21 @@
    source("code/00_setup.R")
    source("code/01_ingest_storefronts.R")
    source("code/03_build_indicators.R")
+   source("code/04_qa_ll157.R")
    ```
-   This writes cleaned storefront files to `data/storefront/` and a combined indicator table to `data/indicators/crgb_storefront_indicators.csv`.
+   This writes cleaned storefront files to `data/storefront/`, a combined indicator table to `data/indicators/crgb_storefront_indicators.csv`, and a QA comparison table to `data/qa/ll157_borough_comparison.csv`.
 4. Optional: run the whole pipeline (including the example viz) with `targets::tar_make()`.
-5. Optional: create the sample chart with `source("viz/vacancy_rate_by_borough.R")`, which saves `viz/vacancy_rate_by_borough.png`.
+5. Optional: create the sample charts with `source("viz/vacancy_rate_by_borough.R")`, `source("viz/total_storefronts_by_borough.R")`, and `source("viz/vacancy_rate_by_council_district.R")` to save the respective PNGs under `viz/`.
 
 ## Interpreting the indicator table
 `data/indicators/crgb_storefront_indicators.csv` contains one row per geography (borough or Council District) per year. Key fields:
 
 - `year`: reporting year of the storefront registry statistics.
 - `geography_type`, `geography_id`, `geography_name`: geography identifiers and labels.
-- `total_storefronts`, `vacant_storefronts`: counts from LL157 storefront statistics (Class 1 plus Classes 2/4).
-- `vacancy_rate`: `vacant_storefronts / total_storefronts`.
-- `median_rent_psf`: median monthly rent per square foot (Class 2/4 only in this scaffold; `NA` elsewhere).
-- Class-specific breakdowns (`total_storefronts_class1`, `total_storefronts_class2_4`, etc.) to support auditing and extensions.
+- Combined counts and rates: `total_storefronts_all` (aliased to `total_storefronts`), `vacant_storefronts_all` (aliased to `vacant_storefronts`), and `vacancy_rate_all` (aliased to `vacancy_rate`). Combined vacancy is set to `NA` where component vacancies are suppressed.
+- Class-specific breakdowns and rates (`total_storefronts_class1`, `total_storefronts_class2_4`, `vacancy_rate_class1`, `vacancy_rate_class2_4`) to support auditing and extensions.
+- `median_rent_psf_class2_4`: median monthly rent per square foot (Class 2/4 only in this scaffold; `NA` elsewhere).
+- Coverage flags: `has_full_class1_vacancy` and `has_full_class24_vacancy` indicate whether vacancy counts were published for each component class.
 
 See `docs/indicator_roadmap.md` for the planned extensions (additional geographies, property-level LL157 data, and broader CRGB indicator families).
 

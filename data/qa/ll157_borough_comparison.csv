@@ -1,0 +1,26 @@
+year,geography_name,total_storefronts_raw,raw_vacancy_suppressed,vacant_storefronts_raw,total_storefronts_indicators,vacant_storefronts_indicators,vacancy_rate_indicators,has_full_class1_vacancy,has_full_class24_vacancy,diff_total_storefronts,diff_vacant_storefronts
+2019,Bronx,9970,False,676.0,9970.0,676.0,0.067803410230692,True,True,0.0,0.0
+2019,Brooklyn,16671,True,,16671.0,,,True,False,0.0,
+2019,Manhattan,25304,True,,25304.0,,,True,False,0.0,
+2019,Queens,15230,False,1064.0,15230.0,1064.0,0.0698621142481943,True,True,0.0,0.0
+2019,Staten Island,3027,False,257.0,3027.0,257.0,0.0849025437727122,True,True,0.0,0.0
+2020,Bronx,10173,False,683.0,10173.0,683.0,0.067138503882827,True,True,0.0,0.0
+2020,Brooklyn,17320,True,,17320.0,,,True,False,0.0,
+2020,Manhattan,26008,True,,26008.0,,,True,False,0.0,
+2020,Queens,15716,True,,15716.0,,,True,False,0.0,
+2020,Staten Island,3108,False,257.0,3108.0,257.0,0.0826898326898327,True,True,0.0,0.0
+2021,Bronx,8410,False,521.0,8410.0,521.0,0.0619500594530321,True,True,0.0,0.0
+2021,Brooklyn,14755,True,,14755.0,,,True,False,0.0,
+2021,Manhattan,23798,True,,23798.0,,,True,False,0.0,
+2021,Queens,13198,False,1041.0,13198.0,1041.0,0.0788755872101833,True,True,0.0,0.0
+2021,Staten Island,2371,False,209.0,2371.0,209.0,0.0881484605651623,True,True,0.0,0.0
+2022,Bronx,8453,True,,8453.0,,,False,True,0.0,
+2022,Brooklyn,14557,True,,14557.0,,,True,False,0.0,
+2022,Manhattan,24083,True,,24083.0,,,True,False,0.0,
+2022,Queens,13563,False,954.0,13563.0,954.0,0.0703384207033842,True,True,0.0,0.0
+2022,Staten Island,2552,False,203.0,2552.0,203.0,0.0795454545454545,True,True,0.0,0.0
+2023,Bronx,8104,False,511.0,8104.0,511.0,0.0630552813425468,True,True,0.0,0.0
+2023,Brooklyn,15201,True,,15201.0,,,True,False,0.0,
+2023,Manhattan,23665,True,,23665.0,,,True,False,0.0,
+2023,Queens,13518,False,925.0,13518.0,925.0,0.0684272821423287,True,True,0.0,0.0
+2023,Staten Island,2435,False,175.0,2435.0,175.0,0.0718685831622176,True,True,0.0,0.0

@@ -38,3 +38,19 @@
     - year
     - geography_type
     - geography_id
+- id: storefront_registry_property_level
+  title: Storefronts Reported Vacant or Not (property-level)
+  description: |
+    Property-level LL157 storefront registry submissions. Placeholder for
+    future aggregation and QA against the published borough-level LL157
+    statistics.
+  source: NYC Open Data
+  open_data_id: 92iy-9c3n
+  open_data_url: https://data.cityofnewyork.us/resource/92iy-9c3n
+  raw_path: storefront/storefront_registry_property_level.csv
+  processed_tables:
+    - crgb_storefront_registry_aggregates
+  key_columns:
+    - year
+    - geography_type
+    - geography_id

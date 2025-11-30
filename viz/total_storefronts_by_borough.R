@@ -1,4 +1,4 @@
-# Purpose: Quick visualization of vacancy rates by borough over time.
+# Purpose: Plot total storefront counts by borough over time.
 
 source(here::here("code", "00_setup.R"))
 
@@ -11,8 +11,8 @@ indicators <- readr::read_csv(indicator_path, show_col_types = FALSE)
 
 boroughs <- indicators |>
   filter(geography_type == "borough") |>
-  filter(!is.na(vacancy_rate_all)) |>
-  mutate(vacancy_pct = vacancy_rate_all * 100)
+  select(year, geography_name, total_storefronts_all) |>
+  mutate(total_storefronts_all = as.numeric(total_storefronts_all))
 
 theme_fun <- function() {
   if (
@@ -34,19 +34,19 @@ scale_colour_fun <- function() {
   scale_color_brewer(palette = "Set2")
 }
 
-p <- ggplot(boroughs, aes(x = year, y = vacancy_pct, color = geography_name, group = geography_name)) +
+p <- ggplot(boroughs, aes(x = year, y = total_storefronts_all, color = geography_name, group = geography_name)) +
   geom_line(linewidth = 1) +
   geom_point() +
   labs(
-    title = "Storefront vacancy rate by borough",
-    subtitle = "Vacant storefronts reported (not leased) divided by total storefronts, Classes 1 & 2/4",
+    title = "Reported storefront counts by borough",
+    subtitle = "Total storefronts reported under LL157, Classes 1 & 2/4",
     x = "Year",
-    y = "Vacancy rate (%)",
+    y = "Total storefronts",
     color = "Borough",
-    caption = "Series shown where borough-level vacancies are published; suppressed geographies are omitted."
+    caption = "Counts reflect LL157 storefront registrations; coverage may vary by borough and year."
   ) +
   scale_colour_fun() +
   theme_fun()
 
-ggsave(filename = viz_path("vacancy_rate_by_borough.png"), plot = p, width = 8, height = 5, dpi = 300)
-message("Saved viz/vacancy_rate_by_borough.png")
+ggsave(filename = viz_path("total_storefronts_by_borough.png"), plot = p, width = 8, height = 5, dpi = 300)
+message("Saved viz/total_storefronts_by_borough.png")

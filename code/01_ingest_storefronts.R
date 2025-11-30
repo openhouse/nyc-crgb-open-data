@@ -40,6 +40,31 @@ parse_num <- function(x) {
   )
 }
 
+log_parsing_problems <- function(problems_df, dataset_id, source_path) {
+  if (nrow(problems_df) == 0) {
+    return(invisible(NULL))
+  }
+
+  dir.create(data_path("qa"), showWarnings = FALSE, recursive = TRUE)
+
+  problems_df <- problems_df |>
+    mutate(
+      dataset_id = dataset_id %||% "unknown_dataset",
+      source_path = source_path
+    ) |>
+    relocate(dataset_id, source_path, .before = row)
+
+  out_file <- data_path("qa", "ll157_parsing_issues.csv")
+
+  if (file.exists(out_file)) {
+    existing <- readr::read_csv(out_file, show_col_types = FALSE)
+    problems_df <- dplyr::bind_rows(existing, problems_df)
+  }
+
+  readr::write_csv(problems_df, out_file)
+  invisible(out_file)
+}
+
 standardize_geography_id <- function(geography_type, geography_name) {
   ifelse(
     geography_type == "borough",
@@ -56,7 +81,7 @@ standardize_geography_id <- function(geography_type, geography_name) {
   )
 }
 
-read_storefront_stats <- function(path, open_data_id = NULL, use_open_data = TRUE, refresh = FALSE) {
+read_storefront_stats <- function(path, open_data_id = NULL, use_open_data = TRUE, refresh = FALSE, dataset_id = NULL) {
   if (use_open_data && !is.null(open_data_id)) {
     path <- fetch_nyc_open_data_snapshot(open_data_id, path, refresh = refresh)
   }
@@ -75,7 +100,10 @@ read_storefront_stats <- function(path, open_data_id = NULL, use_open_data = TRU
     stop(glue::glue("Expected storefront stats at {path} or a valid open_data_id."))
   }
 
-  df <- readr::read_csv(path, show_col_types = FALSE) |>
+  df_raw <- readr::read_csv(path, show_col_types = FALSE)
+  log_parsing_problems(readr::problems(df_raw), dataset_id, path)
+
+  df <- df_raw |>
     janitor::clean_names()
 
   required_raw <- c(
@@ -167,14 +195,16 @@ run_ingest_storefronts <- function(use_open_data = bool_env("CRGB_USE_OPEN_DATA"
     class2_4_raw_path,
     open_data_id = spec_24$open_data_id,
     use_open_data = use_open_data,
-    refresh = refresh_open_data
+    refresh = refresh_open_data,
+    dataset_id = spec_24$id
   )
 
   storefront_stats_class1 <- read_storefront_stats(
     class1_raw_path,
     open_data_id = spec_1$open_data_id,
     use_open_data = use_open_data,
-    refresh = refresh_open_data
+    refresh = refresh_open_data,
+    dataset_id = spec_1$id
   )
 
   class2_4_out <- data_path("storefront", "storefront_stats_class2_4_clean.rds")
