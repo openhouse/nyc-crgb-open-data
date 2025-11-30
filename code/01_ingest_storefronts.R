@@ -10,11 +10,23 @@ bool_env <- function(x, default = TRUE) {
 }
 
 parse_int <- function(x) {
-  readr::parse_integer(x, na = c("", "NA", "*"), locale = readr::locale(grouping_mark = ","))
+  x_chr <- as.character(x)
+
+  readr::parse_integer(
+    x_chr,
+    na = c("", "NA", "*"),
+    locale = readr::locale(grouping_mark = ",")
+  )
 }
 
 parse_num <- function(x) {
-  readr::parse_number(x, na = c("", "NA", "*"), locale = readr::locale(grouping_mark = ","))
+  x_chr <- as.character(x)
+
+  readr::parse_number(
+    x_chr,
+    na = c("", "NA", "*"),
+    locale = readr::locale(grouping_mark = ",")
+  )
 }
 
 standardize_geography_id <- function(geography_type, geography_name) {
