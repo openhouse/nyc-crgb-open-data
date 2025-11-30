@@ -17,14 +17,15 @@ The script will:
 1. Install `{renv}` if needed and restore the project library.
 2. Download LL157 storefront aggregate snapshots from NYC Open Data (`dxru-eun8` and `x3n4-h56k`).
 3. Ingest, standardize, and validate the tables.
-4. Build the indicator CSV and example viz via `targets::tar_make()`.
+4. Build the indicator CSV, QA table, and example visualizations via `targets::tar_make()`.
 
 Key outputs after it finishes:
 
 - `data-raw/storefront/*.csv` – cached NYC Open Data snapshots (Classes 2/4 and Class 1).
 - `data/storefront/storefront_stats_class2_4_clean.rds` and `storefront_stats_class1_clean.rds` (+ CSV mirrors).
-- `data/indicators/crgb_storefront_indicators.csv` – vacancy and rent indicators by geography-year.
-- `viz/vacancy_rate_by_borough.png` – sample borough-level vacancy-rate chart.
+- `data/indicators/crgb_storefront_indicators.csv` – vacancy and rent indicators by geography-year (combined and class-specific, with coverage flags).
+- `data/qa/ll157_borough_comparison.csv` – borough-level QA comparing raw LL157 aggregates to indicator totals.
+- `viz/vacancy_rate_by_borough.png`, `viz/total_storefronts_by_borough.png`, `viz/vacancy_rate_by_council_district.png` – reference charts built from the indicator table.
 
 Prefer to run inside R? Execute:
 

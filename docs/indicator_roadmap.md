@@ -19,7 +19,10 @@ future Commercial Rent Guidelines Board (CRGB).
 - [x] Align ingest column names and types to the official NYC Open Data LL157 aggregates:
   - `Storefront Registration Class 2 and 4 Statistics` (`dxru-eun8`).
   - `Storefront Registration Statistics for Designated Class One` (`x3n4-h56k`). Snapshots are cached in `data-raw/storefront/` by default.
-- [ ] Extend geographies beyond boroughs as the aggregates allow (e.g., Council Districts, corridors/BIDs) while keeping validation checks (`vacancy_rate` within [0, 1], `vacant_storefronts <= total_storefronts`).
+- [x] Extend geographies beyond boroughs as the aggregates allow (e.g., Council Districts, corridors/BIDs) while keeping validation checks (`vacancy_rate` within [0, 1], `vacant_storefronts <= total_storefronts`).
+- [x] Add class-specific vacancy and coverage fields to indicators (`*_class1`, `*_class2_4`, coverage flags) and keep combined rates `NA` when component vacancies are suppressed.
+- [x] Add QA outputs comparing raw borough totals to indicator values (`data/qa/ll157_borough_comparison.csv`) and logging parsing issues (`data/qa/ll157_parsing_issues.csv`).
+- [x] Add supplementary visuals (borough storefront counts, Council District vacancy snapshot) grounded in the indicator table.
 
 ## Phase 2 – Property-level storefront registry (NYC Open Data)
 - [ ] Define ingest and validation for the property-level `Storefronts Reported Vacant or Not` dataset (`92iy-9c3n`).
