@@ -1,15 +1,120 @@
-year,geography_type,geography_id,geography_name,total_storefronts,vacant_storefronts,median_rent_psf
-2022,borough,BK,Brooklyn,800,120,NA
-2022,borough,MN,Manhattan,600,75,NA
-2022,borough,QN,Queens,500,65,NA
-2022,borough,BX,Bronx,400,70,NA
-2022,borough,SI,Staten Island,200,25,NA
-2022,council_district,CD-01,CD 1,120,18,NA
-2022,council_district,CD-02,CD 2,110,12,NA
-2023,borough,BK,Brooklyn,820,118,NA
-2023,borough,MN,Manhattan,610,73,NA
-2023,borough,QN,Queens,520,64,NA
-2023,borough,BX,Bronx,420,69,NA
-2023,borough,SI,Staten Island,210,24,NA
-2023,council_district,CD-01,CD 1,125,17,NA
-2023,council_district,CD-02,CD 2,115,13,NA
+year,geography_type,geography_name,geography_id,total_storefronts,vacant_storefronts,median_rent_psf,vacancy_rate
+2023,council district,49,49,10,10,NA,1
+2023,council district,47,47,17,NA,NA,NA
+2023,council district,43,43,20,NA,NA,NA
+2023,council district,40,40,14,NA,NA,NA
+2023,council district,39,39,19,13,NA,0.6842105263157895
+2023,council district,38,38,12,NA,NA,NA
+2023,council district,35,35,13,11,NA,0.8461538461538461
+2023,council district,34,34,20,15,NA,0.75
+2023,council district,33,33,16,11,NA,0.6875
+2023,council district,30,30,27,15,NA,0.5555555555555556
+2023,council district,29,29,10,NA,NA,NA
+2023,borough,Staten Island,SI,19,10,NA,0.5263157894736842
+2023,borough,Queens,QN,95,53,NA,0.5578947368421052
+2023,borough,Brooklyn,BK,167,97,NA,0.5808383233532934
+2023,borough,Bronx,BX,17,11,NA,0.6470588235294118
+2023,borough,Manhattan,MN,14,11,NA,0.7857142857142857
+2023,citywide,Citywide,Citywide,312,182,NA,0.5833333333333334
+2022,citywide,Citywide,Citywide,351,184,NA,0.5242165242165242
+2022,borough,Manhattan,MN,20,14,NA,0.7
+2022,council district,49,49,10,NA,NA,NA
+2022,council district,47,47,14,NA,NA,NA
+2022,council district,45,45,14,NA,NA,NA
+2022,council district,44,44,10,NA,NA,NA
+2022,council district,43,43,34,17,NA,0.5
+2022,council district,39,39,18,13,NA,0.7222222222222222
+2022,council district,38,38,19,11,NA,0.5789473684210527
+2022,council district,35,35,13,NA,NA,NA
+2022,council district,34,34,21,13,NA,0.6190476190476191
+2022,council district,33,33,22,14,NA,0.6363636363636364
+2022,council district,30,30,25,NA,NA,NA
+2022,council district,28,28,13,NA,NA,NA
+2022,borough,Staten Island,SI,19,11,NA,0.5789473684210527
+2022,borough,Queens,QN,104,45,NA,0.4326923076923077
+2022,borough,Brooklyn,BK,193,105,NA,0.5440414507772021
+2022,borough,Bronx,BX,15,NA,NA,NA
+2021,council district,37,37,15,NA,NA,NA
+2021,citywide,Citywide,Citywide,466,238,NA,0.5107296137339056
+2021,borough,Manhattan,MN,22,19,NA,0.8636363636363636
+2021,borough,Bronx,BX,19,11,NA,0.5789473684210527
+2021,borough,Brooklyn,BK,272,141,NA,0.5183823529411765
+2021,borough,Queens,QN,130,56,NA,0.4307692307692308
+2021,borough,Staten Island,SI,23,11,NA,0.4782608695652174
+2021,council district,20,20,10,NA,NA,NA
+2021,council district,22,22,11,NA,NA,NA
+2021,council district,26,26,10,NA,NA,NA
+2021,council district,27,27,10,NA,NA,NA
+2021,council district,28,28,12,NA,NA,NA
+2021,council district,30,30,28,15,NA,0.5357142857142857
+2021,council district,32,32,15,NA,NA,NA
+2021,council district,33,33,20,13,NA,0.65
+2021,council district,34,34,24,15,NA,0.625
+2021,council district,35,35,14,NA,NA,NA
+2021,council district,36,36,10,NA,NA,NA
+2021,council district,38,38,27,NA,NA,NA
+2021,council district,39,39,19,NA,NA,NA
+2021,council district,40,40,11,NA,NA,NA
+2021,council district,43,43,42,21,NA,0.5
+2021,council district,44,44,26,16,NA,0.6153846153846154
+2021,council district,45,45,16,NA,NA,NA
+2021,council district,46,46,11,NA,NA,NA
+2021,council district,47,47,20,NA,NA,NA
+2021,council district,48,48,10,NA,NA,NA
+2021,council district,49,49,17,10,NA,0.5882352941176471
+2020,council district,40,40,17,NA,NA,NA
+2020,council district,3,3,11,NA,NA,NA
+2020,council district,1,1,11,NA,NA,NA
+2020,borough,Staten Island,SI,29,16,NA,0.5517241379310345
+2020,borough,Queens,QN,153,75,NA,0.49019607843137253
+2020,borough,Manhattan,MN,33,26,NA,0.7878787878787878
+2020,borough,Brooklyn,BK,316,164,NA,0.5189873417721519
+2020,borough,Bronx,BX,31,18,NA,0.5806451612903226
+2020,council district,22,22,12,NA,NA,NA
+2020,council district,27,27,12,NA,NA,NA
+2020,council district,28,28,18,NA,NA,NA
+2020,council district,30,30,32,14,NA,0.4375
+2020,council district,32,32,20,NA,NA,NA
+2020,council district,33,33,33,23,NA,0.696969696969697
+2020,council district,34,34,21,14,NA,0.6666666666666666
+2020,council district,35,35,25,13,NA,0.52
+2020,council district,36,36,17,12,NA,0.7058823529411765
+2020,council district,37,37,13,NA,NA,NA
+2020,council district,38,38,36,16,NA,0.4444444444444444
+2020,council district,39,39,27,17,NA,0.6296296296296297
+2020,council district,41,41,11,NA,NA,NA
+2020,council district,43,43,40,17,NA,0.425
+2020,council district,44,44,25,11,NA,0.44
+2020,council district,45,45,17,NA,NA,NA
+2020,council district,47,47,18,NA,NA,NA
+2020,council district,48,48,11,NA,NA,NA
+2020,council district,49,49,20,15,NA,0.75
+2020,citywide,Citywide,Citywide,562,299,NA,0.5320284697508897
+2020,council district,13,13,12,NA,NA,NA
+2019,council district,41,41,20,10,NA,0.5
+2019,council district,40,40,19,11,NA,0.5789473684210527
+2019,council district,39,39,25,16,NA,0.64
+2019,council district,38,38,26,11,NA,0.4230769230769231
+2019,council district,36,36,19,14,NA,0.7368421052631579
+2019,council district,35,35,25,17,NA,0.68
+2019,council district,34,34,19,16,NA,0.8421052631578947
+2019,council district,33,33,35,23,NA,0.6571428571428571
+2019,council district,32,32,16,11,NA,0.6875
+2019,citywide,Citywide,Citywide,548,320,NA,0.583941605839416
+2019,council district,30,30,33,16,NA,0.48484848484848486
+2019,council district,28,28,12,NA,NA,NA
+2019,council district,26,26,14,10,NA,0.7142857142857143
+2019,council district,24,24,11,NA,NA,NA
+2019,council district,22,22,17,NA,NA,NA
+2019,borough,Staten Island,SI,27,20,NA,0.7407407407407407
+2019,borough,Queens,QN,155,84,NA,0.5419354838709678
+2019,borough,Brooklyn,BK,318,180,NA,0.5660377358490566
+2019,borough,Bronx,BX,26,18,NA,0.6923076923076923
+2019,borough,Manhattan,MN,22,18,NA,0.8181818181818182
+2019,council district,45,45,20,10,NA,0.5
+2019,council district,44,44,19,NA,NA,NA
+2019,council district,49,49,22,18,NA,0.8181818181818182
+2019,council district,48,48,10,NA,NA,NA
+2019,council district,47,47,14,NA,NA,NA
+2019,council district,46,46,11,NA,NA,NA
+2019,council district,43,43,49,20,NA,0.40816326530612246
