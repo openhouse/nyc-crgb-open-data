@@ -12,11 +12,22 @@ bool_env <- function(x, default = TRUE) {
 parse_int <- function(x) {
   x_chr <- as.character(x)
 
-  readr::parse_integer(
+  parsed <- readr::parse_number(
     x_chr,
     na = c("", "NA", "*"),
     locale = readr::locale(grouping_mark = ",")
   )
+
+  non_whole <- which(!is.na(parsed) & parsed %% 1 != 0)
+  if (length(non_whole) > 0) {
+    warning(
+      "parse_int(): found non-whole values in an integer field at rows: ",
+      paste(head(non_whole, 10), collapse = ", "),
+      if (length(non_whole) > 10) " …"
+    )
+  }
+
+  as.integer(parsed)
 }
 
 parse_num <- function(x) {
